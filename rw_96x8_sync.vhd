@@ -10,5 +10,12 @@ entity rw_96x8_sync is
 end entity;
 
 architecture rw_96x8_sync_arch of rw_96x8_sync is
+
+	-- Internal Signal Decleration
+	signal rw_data_out : std_logic_vector(7 downto 0);
+
 	begin
+
+	data_out <= rw_data_out;
+
 end architecture;

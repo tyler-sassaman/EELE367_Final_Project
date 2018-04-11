@@ -44,7 +44,6 @@ architecture cpu_arch of cpu is
              	     Bus1_Sel    : in  std_logic_vector(1 downto 0);
              	     ALU_Select  : in  std_logic_vector(2 downto 0);
 	     	     from_memory : in  std_logic_vector(7 downto 0);
-	     	     writeEn     : out std_logic;
 	     	     IR		 : out std_logic_vector(7 downto 0);
 	     	     CCR_Result  : out std_logic_vector(3 downto 0);
              	     to_memory   : out std_logic_vector(7 downto 0);
@@ -53,7 +52,7 @@ architecture cpu_arch of cpu is
 
 	-- Internal Signal Decleration
 	signal cpu_IR_load              : std_logic; 
-	signal cpu_MAR_Load, cpu_write  : std_logic; 	
+	signal cpu_MAR_Load		: std_logic; 	
 	signal cpu_PC_Load, cpu_PC_Inc  : std_logic;
 	signal cpu_A_Load, cpu_B_Load   : std_logic;
 	signal cpu_CCR_Load		: std_logic;
@@ -69,7 +68,7 @@ architecture cpu_arch of cpu is
     	     	     			 reset	     => reset,
 	     	     			 IR	     => cpu_IR,
 	     	     			 CCR_Result  => cpu_CCR_Result,
-	     	     			 writeEn     => cpu_write,
+	     	     			 writeEn     => writeEn,
 	     	     			 IR_Load     => cpu_IR_Load,
 	     	     			 MAR_Load    => cpu_MAR_Load,
 	     	     			 PC_Load     => cpu_PC_Load,
@@ -94,7 +93,6 @@ architecture cpu_arch of cpu is
              	     			   Bus1_Sel    => cpu_Bus1_Sel,
              	     			   ALU_Select  => cpu_ALU_Sel,
 	     	     			   from_memory => from_memory,
-	     	     			   writeEn     => cpu_write,
 	     	     			   IR	       => cpu_IR,
 	     	     			   CCR_Result  => cpu_CCR_Result,
              	     			   to_memory   => to_memory,

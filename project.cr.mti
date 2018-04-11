@@ -22,6 +22,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity alu
 -- Compiling architecture alu_arch of alu
 
+} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/rw_96x8_sync.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Kaitlyn\Documents\EELE 337\Final_Project\rw_96x8_sync.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity rw_96x8_sync
+-- Compiling architecture rw_96x8_sync_arch of rw_96x8_sync
+
 } {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/char_decoder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/char_decoder.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -30,21 +38,37 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity char_decoder
 -- Compiling architecture char_decoder_arch of char_decoder
 
-} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/rw_96x8_sync.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/rw_96x8_sync.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity rw_96x8_sync
--- Compiling architecture rw_96x8_sync_arch of rw_96x8_sync
-
-} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/computer.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/computer.vhd}
+} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/computer.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Kaitlyn\Documents\EELE 337\Final_Project\computer.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling entity computer
 -- Compiling architecture computer_arch of computer
+
+} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/control_unit.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Kaitlyn\Documents\EELE 337\Final_Project\control_unit.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity control_unit
+-- Compiling architecture control_unit_arch of control_unit
+
+} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/rom_128x8_sync.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Kaitlyn\Documents\EELE 337\Final_Project\rom_128x8_sync.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity rom_128x8_sync
+-- Compiling architecture rom_128x8_sync_arch of rom_128x8_sync
+
+} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/cpu.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Kaitlyn\Documents\EELE 337\Final_Project\cpu.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity cpu
+-- Compiling architecture cpu_arch of cpu
 
 } {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/clock_div_2ton.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/clock_div_2ton.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -55,36 +79,12 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity clock_div_2ton
 -- Compiling architecture clock_div_2ton_arch of clock_div_2ton
 
-} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/rom_128x8_sync.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/rom_128x8_sync.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity rom_128x8_sync
--- Compiling architecture rom_128x8_sync_arch of rom_128x8_sync
-
-} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/control_unit.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/control_unit.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity control_unit
--- Compiling architecture control_unit_arch of control_unit
-
-} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/computer_TB.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Kaitlyn\Documents\EELE 337\Final_Project\computer_TB.vhd}
+} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/computer_TB.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/computer_TB.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling entity computer_TB
 -- Compiling architecture computer_TB_arch of computer_TB
-
-} {} {}} {C:/Users/Kaitlyn/Documents/EELE 337/Final_Project/cpu.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Kaitlyn\Documents\EELE 337\Final_Project\cpu.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity cpu
--- Compiling architecture cpu_arch of cpu
 
 } {} {}}

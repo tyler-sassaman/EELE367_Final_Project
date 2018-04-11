@@ -20,5 +20,33 @@ entity control_unit is
 end entity;
 
 architecture control_unit_arch of control_unit is
+
+	-- Internal Signal Decleration
+	signal cu_writeEn    : std_logic;
+	signal cu_IR_Load    : std_logic;
+	signal cu_MAR_Load   : std_logic;
+	signal cu_PC_Load    : std_logic;
+	signal cu_PC_Inc     : std_logic;
+	signal cu_A_Load     : std_logic;
+	signal cu_B_Load     : std_logic;
+	signal cu_CCR_Load   : std_logic;
+	signal cu_Bus2_Sel   : std_logic_vector(1 downto 0);
+	signal cu_Bus1_Sel   : std_logic_vector(1 downto 0);
+	signal cu_ALU_Select : std_logic_vector(2 downto 0);	
+
 	begin
+
+	writeEn    <= cu_writeEn;
+	IR_Load    <= cu_IR_Load;
+	MAR_Load   <= cu_MAR_Load;
+	PC_Load    <= cu_PC_Load;
+	PC_Inc     <= cu_PC_Inc;
+	A_Load     <= cu_A_Load;
+	B_Load     <= cu_B_Load;
+	CCR_Load   <= cu_CCR_Load;
+	Bus2_Sel   <= cu_Bus2_Sel;
+	Bus1_Sel   <= cu_Bus2_Sel;
+	ALU_Select <= cu_ALU_Select;
+
+ 
 end architecture;

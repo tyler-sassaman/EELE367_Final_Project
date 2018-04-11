@@ -9,5 +9,14 @@ entity alu is
 end entity;
 
 architecture alu_arch of alu is
+
+	-- Internal Signal Decleration
+	signal alu_ALU_Result : std_logic_vector(7 downto 0);
+	signal alu_NZVC	      : std_logic_vector(3 downto 0);
+
 	begin
+
+	ALU_Result <= alu_ALU_Result;
+	NZVC <= alu_NZVC;
+
 end architecture;
