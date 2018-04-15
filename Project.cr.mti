@@ -1,0 +1,96 @@
+{C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/memory.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/memory.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity memory
+-- Compiling architecture memory_arch of memory
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/data_path.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/data_path.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity data_path
+-- Compiling architecture data_path_arch of data_path
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/alu.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/alu.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity alu
+-- Compiling architecture alu_arch of alu
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/rw_96x8_sync.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Tyler\Documents\College Work\2017-2018\Spring 18\EELE 367\Final_Project\rw_96x8_sync.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity rw_96x8_sync
+-- Compiling architecture rw_96x8_sync_arch of rw_96x8_sync
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/char_decoder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/char_decoder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity char_decoder
+-- Compiling architecture char_decoder_arch of char_decoder
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/computer.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/computer.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity computer
+-- Compiling architecture computer_arch of computer
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/control_unit.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/control_unit.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity control_unit
+-- Compiling architecture control_unit_arch of control_unit
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/cpu.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/cpu.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity cpu
+-- Compiling architecture cpu_arch of cpu
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/rom_128x8_sync.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\Tyler\Documents\College Work\2017-2018\Spring 18\EELE 367\Final_Project\rom_128x8_sync.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity rom_128x8_sync
+-- Compiling architecture rom_128x8_sync_arch of rom_128x8_sync
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/clock_div_2ton.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/clock_div_2ton.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity clock_div_2ton
+-- Compiling architecture clock_div_2ton_arch of clock_div_2ton
+
+} {} {}} {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/computer_TB.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/Tyler/Documents/College Work/2017-2018/Spring 18/EELE 367/Final_Project/computer_TB.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity computer_TB
+-- Compiling architecture computer_TB_arch of computer_TB
+
+} {} {}}

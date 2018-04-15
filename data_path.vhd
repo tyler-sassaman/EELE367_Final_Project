@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.std_logic_1164.all; 
+use IEEE.numeric_std.all;
 
 entity data_path is 
 	port(clock	 : in  std_logic;
@@ -31,22 +32,111 @@ architecture data_path_arch of data_path is
 	end component;
 
 	-- Internal Signal Decleration
-	signal dp_A, dp_B	: std_logic_vector(7 downto 0);
-	signal dp_ALU_result	: std_logic_vector(7 downto 0);
-	signal dp_NZVC		: std_logic_vector(3 downto 0);
-	signal dp_IR		: std_logic_vector(7 downto 0);
-	signal dp_CCR_Result	: std_logic_vector(3 downto 0);
-	signal dp_to_memory	: std_logic_vector(7 downto 0);
-	signal dp_address	: std_logic_vector(7 downto 0);
+	signal ALU_result	: std_logic_vector(7 downto 0);
+	signal NZVC		: std_logic_vector(3 downto 0);
+	signal Bus1		: std_logic_vector(7 downto 0);
+	signal Bus2 		: std_logic_vector(7 downto 0);
+	signal PC		: std_logic_vector(7 downto 0);
+	signal A		: std_logic_vector(7 downto 0);
+	signal B		: std_logic_vector(7 downto 0);
+	signal MAR		: std_logic_vector(7 downto 0);
+	signal PC_uns		: unsigned(7 downto 0);
 
 	begin
 
 	-- Component Instantiation
-	data_path_ALU : alu port map(ALU_Sel => ALU_Select, A => dp_A, B => dp_B, ALU_Result => dp_ALU_result, NZVC => dp_NZVC);
+	data_path_ALU : alu port map(ALU_Sel => ALU_Select, A => A, B => B, ALU_Result => ALU_result, NZVC => NZVC);
 
-	IR         <= dp_IR;
-	CCR_Result <= dp_CCR_Result;
-	to_memory  <= dp_to_memory;
-	address    <= dp_address;
+	MUX_BUS1 : process (Bus1_Sel, PC, A, B)
+		begin
+		case(Bus1_Sel) is
+			when "00" => Bus1 <= PC;
+		        when "01" => Bus1 <= A;
+			when "10" => Bus1 <= B;
+			when others => Bus1 <= x"00";
+		end case;
+	end process;
+
+	MUX_BUS2 : process (Bus2_Sel, ALU_Result, Bus1, from_memory)
+		begin
+		case(Bus2_Sel) is
+			when "00" => Bus2 <= ALU_Result;
+		        when "01" => Bus2 <= Bus1;
+			when "10" => Bus2 <= from_memory;
+			when others => Bus2 <= x"00";
+		end case;
+	end process;
+
+	address <= MAR;
+	to_memory <= Bus1;
+
+	INSTRUCTION_REGISTER : process (clock, reset)
+		begin
+		if(reset = '1') then
+			IR <= x"00";
+		elsif(rising_edge(clock)) then
+			if(IR_Load = '1') then
+				IR <= Bus2;
+			end if;
+		end if;
+	end process;
+
+	MEMORY_ADDRESS_REGISTER : process (clock, reset)
+		begin
+		if(reset = '1') then
+			MAR <= x"00";
+		elsif(rising_edge(clock)) then
+			if(MAR_Load = '1') then
+				MAR <= Bus2;
+			end if;
+		end if;
+	end process;
+
+	PROGRAM_COUNTER : process (clock, reset)
+		begin
+		if(reset = '0') then
+			PC_uns <= x"00";
+		elsif(rising_edge(clock)) then
+			if(PC_Load = '1') then
+				PC_uns <= unsigned(Bus2);
+			elsif(PC_Inc = '1') then
+				PC_uns <= PC_uns + 1;
+			end if;
+		end if;
+	end process;
+	PC <= std_logic_vector(PC_uns);
+
+	A_REGISTER : process (clock, reset)
+		begin
+		if(reset = '1') then
+			A <= x"00";
+		elsif(rising_edge(clock)) then
+			if(A_Load = '1') then
+				A <= Bus2;
+			end if;
+		end if;
+	end process;
+
+	B_REGISTER : process (clock, reset)
+		begin
+		if(reset = '1') then
+			B <= x"00";
+		elsif(rising_edge(clock)) then
+			if(B_Load = '1') then
+				B <= Bus2;
+			end if;
+		end if;
+	end process;
+
+	CONDITION_CODE_REGISTER : process (clock, reset)
+		begin
+		if(reset = '1') then
+			CCR_Result <= x"0";
+		elsif(rising_edge(clock)) then
+			if(CCR_Load = '1') then
+				CCR_Result <= NZVC;
+			end if;
+		end if;
+	end process;
 
 end architecture;

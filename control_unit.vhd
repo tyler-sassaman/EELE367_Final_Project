@@ -1,5 +1,6 @@
 library IEEE;
-use IEEE.std_logic_1164.all; 
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all; 
 
 entity control_unit is 
 	port(clock	 : in	std_logic;
@@ -21,32 +22,112 @@ end entity;
 
 architecture control_unit_arch of control_unit is
 
+	type state_type is (S_FETCH_0, S_FETCH_1, S_FETCH_2,
+			    S_DECODE_3,
+			    S_LDA_IMM_4, S_LDA_IMM_5, S_LDA_IMM_6,
+			    S_LDA_DIR_4, S_LDA_DIR_5, S_LDA_DIR_6, S_LDA_DIR_7,
+			    S_STA_DIR_4, S_STA_DIR_5, S_STA_DIR_6, S_STA_DIR_7, S_STA_DIR_8,
+			    S_ADD_AB_4,
+			    S_BRA_4, S_BRA_5, S_BRA_6,
+			    S_BEQ_4, S_BEQ_5, S_BEQ_6, S_BEQ_7);
+
 	-- Internal Signal Decleration
-	signal cu_writeEn    : std_logic;
-	signal cu_IR_Load    : std_logic;
-	signal cu_MAR_Load   : std_logic;
-	signal cu_PC_Load    : std_logic;
-	signal cu_PC_Inc     : std_logic;
-	signal cu_A_Load     : std_logic;
-	signal cu_B_Load     : std_logic;
-	signal cu_CCR_Load   : std_logic;
-	signal cu_Bus2_Sel   : std_logic_vector(1 downto 0);
-	signal cu_Bus1_Sel   : std_logic_vector(1 downto 0);
-	signal cu_ALU_Select : std_logic_vector(2 downto 0);	
+	signal current_state, next_state : state_type;
 
 	begin
 
-	writeEn    <= cu_writeEn;
-	IR_Load    <= cu_IR_Load;
-	MAR_Load   <= cu_MAR_Load;
-	PC_Load    <= cu_PC_Load;
-	PC_Inc     <= cu_PC_Inc;
-	A_Load     <= cu_A_Load;
-	B_Load     <= cu_B_Load;
-	CCR_Load   <= cu_CCR_Load;
-	Bus2_Sel   <= cu_Bus2_Sel;
-	Bus1_Sel   <= cu_Bus2_Sel;
-	ALU_Select <= cu_ALU_Select;
+	STATE_MEMORY : process (clock, reset)
+		begin
+		if(reset = '0') then
+			current_state <= S_FETCH_0;
+		elsif(rising_edge(clock)) then
+			current_state <= next_state;
+		end if;
+	end process;
 
+	NEXT_STATE_LOGIC : process (current_state, IR, CCR_Result)
+		begin
+		if(current_state = S_FETCH_0) then
+			next_state <= S_FETCH_1;
+		elsif(current_state = S_FETCH_1) then
+			next_state <= S_FETCH_2;
+		elsif(current_state = S_FETCH_2) then
+			next_state <= S_DECODE_3;
+		elsif(current_state = S_DECODE_3) then
+			-- select execution path
+			if(IR = x"86") then
+				next_state <= S_LDA_IMM_4;		-- Load Immediate
+			elsif(IR = x"87") then
+				next_state <= S_LDA_DIR_4;		-- Load Direct
+			elsif(IR = x"96") then
+				next_state <= S_STA_DIR_4;		-- Store A Direct
+			elsif(IR = x"42") then
+				next_state <= S_ADD_AB_4;		-- Add A and B
+			elsif(IR = x"20") then
+				next_state <= S_BRA_4;			-- Branch Always
+			elsif(IR = x"23" and CCR_Result(2) = '1') then
+				next_state <= S_BEQ_4;			-- BEQ and Z = 1
+			elsif(IR = x"23" and CCR_Result(2) = '0') then
+				next_state <= S_BEQ_7;			-- BEQ and Z = 0
+			else 
+				next_state <= S_FETCH_0;		-- Start over
+			end if;
+		-- add paths for each instruction here
+		end if;
+ 	end process;
+
+	OUTPUT_LOGIC : process (current_state)
+		begin
+		case (current_state) is
+			when S_FETCH_0 => -- Put PC onto MAR to read OPCODE
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
+			when S_FETCH_1 => -- Increment PC
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
+			when S_FETCH_2 => 
+			when S_DECODE_3 => 
+			when S_LDA_IMM_4 => 
+			when S_LDA_IMM_5 => 
+			when S_LDA_IMM_6 => 
+			when S_LDA_DIR_4 => 
+			when S_LDA_DIR_5 => 
+			when S_LDA_DIR_6 => 
+			when S_LDA_DIR_7 => 
+			when S_STA_DIR_4 => 			
+			when S_STA_DIR_5 => 
+			when S_STA_DIR_6 => 
+			when S_STA_DIR_7 => 
+			when S_STA_DIR_8 => 
+			when S_ADD_AB_4 => 
+			when S_BRA_4 => 
+			when S_BRA_5 => 
+			when S_BRA_6 => 
+			when S_BEQ_4 => 
+			when S_BEQ_5  => 
+			when S_BEQ_6  => 
+			when S_BEQ_7  => 
+		end case;
+	end process;
  
 end architecture;
