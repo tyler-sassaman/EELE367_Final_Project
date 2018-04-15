@@ -25,8 +25,8 @@ architecture control_unit_arch of control_unit is
 	type state_type is (S_FETCH_0, S_FETCH_1, S_FETCH_2,
 			    S_DECODE_3,
 			    S_LDA_IMM_4, S_LDA_IMM_5, S_LDA_IMM_6,
-			    S_LDA_DIR_4, S_LDA_DIR_5, S_LDA_DIR_6, S_LDA_DIR_7,
-			    S_STA_DIR_4, S_STA_DIR_5, S_STA_DIR_6, S_STA_DIR_7, S_STA_DIR_8,
+			    S_LDA_DIR_4, S_LDA_DIR_5, S_LDA_DIR_6, S_LDA_DIR_7, S_LDA_DIR_8,
+			    S_STA_DIR_4, S_STA_DIR_5, S_STA_DIR_6, S_STA_DIR_7,
 			    S_ADD_AB_4,
 			    S_BRA_4, S_BRA_5, S_BRA_6,
 			    S_BEQ_4, S_BEQ_5, S_BEQ_6, S_BEQ_7);
@@ -73,6 +73,46 @@ architecture control_unit_arch of control_unit is
 				next_state <= S_FETCH_0;		-- Start over
 			end if;
 		-- add paths for each instruction here
+		elsif(current_state = S_LDA_IMM_4) then
+			next_state <= S_LDA_IMM_5;
+		elsif(current_state = S_LDA_IMM_5) then
+			next_state <= S_LDA_IMM_6;
+		elsif(current_state = S_LDA_IMM_6) then
+			next_state <= S_FETCH_0; -- Done with instruction
+		elsif(current_state = S_LDA_DIR_4) then
+			next_state <= S_LDA_DIR_5;
+		elsif(current_state = S_LDA_DIR_5) then
+			next_state <= S_LDA_DIR_6;
+		elsif(current_state = S_LDA_DIR_6) then
+			next_state <= S_LDA_DIR_7;
+		elsif(current_state = S_LDA_DIR_7) then
+			next_state <= S_LDA_DIR_8;
+		elsif(current_state = S_LDA_DIR_8) then
+			next_state <= S_FETCH_0; -- Done with instruction
+		elsif(current_state = S_STA_DIR_4) then
+			next_state <= S_STA_DIR_5;
+		elsif(current_state = S_STA_DIR_5) then
+			next_state <= S_STA_DIR_6;
+		elsif(current_state = S_STA_DIR_6) then
+			next_state <= S_STA_DIR_7;
+		elsif(current_state = S_STA_DIR_7) then
+			next_state <= S_FETCH_0; -- Done with instruction
+		elsif(current_state = S_ADD_AB_4) then
+			next_state <= S_FETCH_0; -- Done with instruction
+		elsif(current_state = S_BRA_4) then
+			next_state <= S_BRA_5;
+		elsif(current_state = S_BRA_5) then
+			next_state <= S_BRA_6;
+		elsif(current_state = S_BRA_6) then
+			next_state <= S_FETCH_0; -- Done with instruction
+		elsif(current_state = S_BEQ_4) then
+			next_state <= S_BEQ_5;
+		elsif(current_state = S_BEQ_5) then
+			next_state <= S_BEQ_6;
+		elsif(current_state = S_BEQ_6) then
+			next_state <= S_FETCH_0; -- Done with instruction
+		elsif(current_state <= S_BEQ_7) then
+			next_state <= S_FETCH_0; -- Done with instruction
 		end if;
  	end process;
 
@@ -106,27 +146,279 @@ architecture control_unit_arch of control_unit is
 				writeEn <= '0';
 
 			when S_FETCH_2 => 
+				IR_Load <= '1';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_DECODE_3 => 
+
 			when S_LDA_IMM_4 => 
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_LDA_IMM_5 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_LDA_IMM_6 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '1';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_LDA_DIR_4 => 
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_LDA_DIR_5 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_LDA_DIR_6 => 
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_LDA_DIR_7 => 
-			when S_STA_DIR_4 => 			
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
+			when S_LDA_DIR_8 =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '1';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
+			when S_STA_DIR_4 =>
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+ 			
 			when S_STA_DIR_5 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_STA_DIR_6 => 
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_STA_DIR_7 => 
-			when S_STA_DIR_8 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "01"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '1';
+
 			when S_ADD_AB_4 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '1';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '1';
+				Bus1_Sel <= "01"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_BRA_4 => 
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_BRA_5 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_BRA_6 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '1';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_BEQ_4 => 
+				IR_Load <= '0';
+				MAR_Load <= '1';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_BEQ_5  => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_BEQ_6  => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '1';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
 			when S_BEQ_7  => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '1';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
 		end case;
 	end process;
  
