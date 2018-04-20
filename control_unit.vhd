@@ -34,6 +34,28 @@ architecture control_unit_arch of control_unit is
 	-- Internal Signal Decleration
 	signal current_state, next_state : state_type;
 
+	-- Constant Declerations
+	constant LDA_IMM  : std_logic_vector(7 downto 0) := x"86";
+	constant LDA_DIR  : std_logic_vector(7 downto 0) := x"87";
+	constant LDB_IMM  : std_logic_vector(7 downto 0) := x"88";
+	constant LDB_DIR  : std_logic_vector(7 downto 0) := x"89";
+	constant STA_DIR  : std_logic_vector(7 downto 0) := x"96";
+	constant STB_DIR  : std_logic_vector(7 downto 0) := x"97";
+	constant ADD_AB   : std_logic_vector(7 downto 0) := x"42";
+	constant SUB_AB   : std_logic_vector(7 downto 0) := x"43";
+	constant AND_AB   : std_logic_vector(7 downto 0) := x"44";
+	constant OR_AB    : std_logic_vector(7 downto 0) := x"45";
+	constant INCA     : std_logic_vector(7 downto 0) := x"46";
+	constant INCB     : std_logic_vector(7 downto 0) := x"47";
+	constant DECA     : std_logic_vector(7 downto 0) := x"48";
+	constant DeCB     : std_logic_vector(7 downto 0) := x"49";
+	constant BRA 	  : std_logic_vector(7 downto 0) := x"20";
+	constant BMI	  : std_logic_vector(7 downto 0) := x"21";
+	constant BPL	  : std_logic_vector(7 downto 0) := x"22";
+	constant BEQ	  : std_logic_vector(7 downto 0) := x"23";
+	constant BNE 	  : std_logic_vector(7 downto 0) := x"24";
+	constant BVS 	  : std_logic_vector(7 downto 0) := x"25";
+
 	begin
 
 	STATE_MEMORY : process (clock, reset)
@@ -54,31 +76,38 @@ architecture control_unit_arch of control_unit is
 		elsif(current_state = S_FETCH_2) then
 			next_state <= S_DECODE_3;
 		elsif(current_state = S_DECODE_3) then
-			-- select execution path
-			if(IR = x"86") then
+
+			if(IR = LDA_IMM) then
 				next_state <= S_LDA_IMM_4;		-- Load Immediate
-			elsif(IR = x"87") then
+			elsif(IR = LDA_DIR) then
 				next_state <= S_LDA_DIR_4;		-- Load Direct
-			elsif(IR = x"96") then
+			elsif(IR = STA_DIR) then
 				next_state <= S_STA_DIR_4;		-- Store A Direct
-			elsif(IR = x"42") then
+			elsif(IR = ADD_AB) then
 				next_state <= S_ADD_AB_4;		-- Add A and B
-			elsif(IR = x"20") then
+			elsif(IR = BRA) then
 				next_state <= S_BRA_4;			-- Branch Always
-			elsif(IR = x"23" and CCR_Result(2) = '1') then
+			elsif(IR = BEQ and CCR_Result(2) = '1') then
 				next_state <= S_BEQ_4;			-- BEQ and Z = 1
-			elsif(IR = x"23" and CCR_Result(2) = '0') then
+			elsif(IR = BEQ and CCR_Result(2) = '0') then
 				next_state <= S_BEQ_7;			-- BEQ and Z = 0
 			else 
 				next_state <= S_FETCH_0;		-- Start over
 			end if;
-		-- add paths for each instruction here
+
+		---------------------------------------
+		--              LDA_IMM              --
+		---------------------------------------
 		elsif(current_state = S_LDA_IMM_4) then
 			next_state <= S_LDA_IMM_5;
 		elsif(current_state = S_LDA_IMM_5) then
 			next_state <= S_LDA_IMM_6;
 		elsif(current_state = S_LDA_IMM_6) then
-			next_state <= S_FETCH_0; -- Done with instruction
+			next_state <= S_FETCH_0; 
+
+		---------------------------------------
+		--              LDA_DIR              --
+		---------------------------------------
 		elsif(current_state = S_LDA_DIR_4) then
 			next_state <= S_LDA_DIR_5;
 		elsif(current_state = S_LDA_DIR_5) then
@@ -88,7 +117,11 @@ architecture control_unit_arch of control_unit is
 		elsif(current_state = S_LDA_DIR_7) then
 			next_state <= S_LDA_DIR_8;
 		elsif(current_state = S_LDA_DIR_8) then
-			next_state <= S_FETCH_0; -- Done with instruction
+			next_state <= S_FETCH_0;
+
+		---------------------------------------
+		--              STA_DIR              --
+		--------------------------------------- 
 		elsif(current_state = S_STA_DIR_4) then
 			next_state <= S_STA_DIR_5;
 		elsif(current_state = S_STA_DIR_5) then
@@ -96,23 +129,40 @@ architecture control_unit_arch of control_unit is
 		elsif(current_state = S_STA_DIR_6) then
 			next_state <= S_STA_DIR_7;
 		elsif(current_state = S_STA_DIR_7) then
-			next_state <= S_FETCH_0; -- Done with instruction
+			next_state <= S_FETCH_0; 
+
+		---------------------------------------
+		--              ADD_AB               --
+		---------------------------------------
 		elsif(current_state = S_ADD_AB_4) then
-			next_state <= S_FETCH_0; -- Done with instruction
+			next_state <= S_FETCH_0; 
+
+		---------------------------------------
+		--                BRA                --
+		---------------------------------------
 		elsif(current_state = S_BRA_4) then
 			next_state <= S_BRA_5;
 		elsif(current_state = S_BRA_5) then
 			next_state <= S_BRA_6;
 		elsif(current_state = S_BRA_6) then
-			next_state <= S_FETCH_0; -- Done with instruction
+			next_state <= S_FETCH_0;
+
+		---------------------------------------
+		--            BEQ (Z=1)              --
+		---------------------------------------
 		elsif(current_state = S_BEQ_4) then
 			next_state <= S_BEQ_5;
 		elsif(current_state = S_BEQ_5) then
 			next_state <= S_BEQ_6;
 		elsif(current_state = S_BEQ_6) then
-			next_state <= S_FETCH_0; -- Done with instruction
+			next_state <= S_FETCH_0;
+
+		---------------------------------------
+		--            BEQ (Z=0)              --
+		---------------------------------------
 		elsif(current_state <= S_BEQ_7) then
-			next_state <= S_FETCH_0; -- Done with instruction
+			next_state <= S_FETCH_0; 
+
 		end if;
  	end process;
 
@@ -120,17 +170,17 @@ architecture control_unit_arch of control_unit is
 		begin
 		case (current_state) is
 			when S_FETCH_0 => -- Put PC onto MAR to read OPCODE
-				IR_Load <= '0';
-				MAR_Load <= '1';
-				PC_Load <= '0';
-				PC_Inc <= '0';
-				A_Load <= '0';
-				B_Load <= '0';
+				IR_Load    <= '0';
+				MAR_Load   <= '1';
+				PC_Load    <= '0';
+				PC_Inc     <= '0';
+				A_Load     <= '0';
+				B_Load     <= '0';
 				ALU_Select <= "000";
-				CCR_Load <= '0';
-				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
-				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
-				writeEn <= '0';
+				CCR_Load   <= '0';
+				Bus1_Sel   <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel   <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn    <= '0';
 
 			when S_FETCH_1 => -- Increment PC
 				IR_Load <= '0';
@@ -159,6 +209,17 @@ architecture control_unit_arch of control_unit is
 				writeEn <= '0';
 
 			when S_DECODE_3 => 
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
 
 			when S_LDA_IMM_4 => 
 				IR_Load <= '0';
@@ -222,7 +283,7 @@ architecture control_unit_arch of control_unit is
 				ALU_Select <= "000";
 				CCR_Load <= '0';
 				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
-				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
 				writeEn <= '0';
 
 			when S_LDA_DIR_6 => 
@@ -248,7 +309,7 @@ architecture control_unit_arch of control_unit is
 				ALU_Select <= "000";
 				CCR_Load <= '0';
 				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
-				Bus2_Sel <= "10"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
 				writeEn <= '0';
 
 			when S_LDA_DIR_8 =>
@@ -287,7 +348,7 @@ architecture control_unit_arch of control_unit is
 				ALU_Select <= "000";
 				CCR_Load <= '0';
 				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
-				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
 				writeEn <= '0';
 
 			when S_STA_DIR_6 => 
@@ -313,7 +374,7 @@ architecture control_unit_arch of control_unit is
 				ALU_Select <= "000";
 				CCR_Load <= '0';
 				Bus1_Sel <= "01"; -- "00" = PC, "01" = A, "10" = B
-				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
 				writeEn <= '1';
 
 			when S_ADD_AB_4 => 
@@ -418,6 +479,19 @@ architecture control_unit_arch of control_unit is
 				CCR_Load <= '0';
 				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
 				Bus2_Sel <= "01"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
+				writeEn <= '0';
+
+			when others =>
+				IR_Load <= '0';
+				MAR_Load <= '0';
+				PC_Load <= '0';
+				PC_Inc <= '0';
+				A_Load <= '0';
+				B_Load <= '0';
+				ALU_Select <= "000";
+				CCR_Load <= '0';
+				Bus1_Sel <= "00"; -- "00" = PC, "01" = A, "10" = B
+				Bus2_Sel <= "00"; -- "00" = ALU_Result, "01" = Bus1, "10" = from_memory
 				writeEn <= '0';
 		end case;
 	end process;

@@ -72,7 +72,7 @@ architecture memory_arch of memory is
 	-- port_out_00 description : Address x"E0"
 	U3 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_00 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E0" and writeEn = '1') then
@@ -84,7 +84,7 @@ architecture memory_arch of memory is
 	-- port_out_01 description : Address x"E1"
 	U4 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_01 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E1" and writeEn = '1') then
@@ -96,7 +96,7 @@ architecture memory_arch of memory is
 	-- port_out_02 description : Address x"E2"
 	U5 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_02 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E2" and writeEn = '1') then
@@ -108,7 +108,7 @@ architecture memory_arch of memory is
 	-- port_out_03 description : Address x"E3"
 	U6 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_03 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E3" and writeEn = '1') then
@@ -120,7 +120,7 @@ architecture memory_arch of memory is
 	-- port_out_04 description : Address x"E4"
 	U7 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_04 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E4" and writeEn = '1') then
@@ -132,7 +132,7 @@ architecture memory_arch of memory is
 	-- port_out_05 description : Address x"E5"
 	U8 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_05 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E5" and writeEn = '1') then
@@ -144,7 +144,7 @@ architecture memory_arch of memory is
 	-- port_out_06 description : Address x"E6"
 	U9 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_06 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E6" and writeEn = '1') then
@@ -156,7 +156,7 @@ architecture memory_arch of memory is
 	-- port_out_07 description : Address x"E7"
 	U10 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_07 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E7" and writeEn = '1') then
@@ -168,7 +168,7 @@ architecture memory_arch of memory is
 	-- port_out_08 description : Address x"E8"
 	U11 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_08 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E8" and writeEn = '1') then
@@ -180,7 +180,7 @@ architecture memory_arch of memory is
 	-- port_out_09 description : Address x"E9"
 	U12 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_09 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"E9" and writeEn = '1') then
@@ -192,7 +192,7 @@ architecture memory_arch of memory is
 	-- port_out_10 description : Address x"EA"
 	U13 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_10 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"EA" and writeEn = '1') then
@@ -204,7 +204,7 @@ architecture memory_arch of memory is
 	-- port_out_11 description : Address xEB"
 	U14 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_11 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"EB" and writeEn = '1') then
@@ -216,7 +216,7 @@ architecture memory_arch of memory is
 	-- port_out_12 description : Address x"EC"
 	U15 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_12 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"EC" and writeEn = '1') then
@@ -228,7 +228,7 @@ architecture memory_arch of memory is
 	-- port_out_13 description : Address xED"
 	U16 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_13 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"ED" and writeEn = '1') then
@@ -240,7 +240,7 @@ architecture memory_arch of memory is
 	-- port_out_14 description : Address x"EE"
 	U17 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_14 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"EE" and writeEn = '1') then
@@ -252,7 +252,7 @@ architecture memory_arch of memory is
 	-- port_out_15 description : Address x"EF"
 	U18 : process (clock, reset)
 		begin
-		if (reset = '1') then
+		if (reset = '0') then
 			port_out_15 <= x"00";
 		elsif(rising_edge(clock)) then
 			if(address = x"EF" and writeEn = '1') then

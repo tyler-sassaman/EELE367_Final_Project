@@ -72,7 +72,7 @@ architecture data_path_arch of data_path is
 
 	INSTRUCTION_REGISTER : process (clock, reset)
 		begin
-		if(reset = '1') then
+		if(reset = '0') then
 			IR <= x"00";
 		elsif(rising_edge(clock)) then
 			if(IR_Load = '1') then
@@ -83,7 +83,7 @@ architecture data_path_arch of data_path is
 
 	MEMORY_ADDRESS_REGISTER : process (clock, reset)
 		begin
-		if(reset = '1') then
+		if(reset = '0') then
 			MAR <= x"00";
 		elsif(rising_edge(clock)) then
 			if(MAR_Load = '1') then
@@ -108,7 +108,7 @@ architecture data_path_arch of data_path is
 
 	A_REGISTER : process (clock, reset)
 		begin
-		if(reset = '1') then
+		if(reset = '0') then
 			A <= x"00";
 		elsif(rising_edge(clock)) then
 			if(A_Load = '1') then
@@ -119,7 +119,7 @@ architecture data_path_arch of data_path is
 
 	B_REGISTER : process (clock, reset)
 		begin
-		if(reset = '1') then
+		if(reset = '0') then
 			B <= x"00";
 		elsif(rising_edge(clock)) then
 			if(B_Load = '1') then
@@ -130,7 +130,7 @@ architecture data_path_arch of data_path is
 
 	CONDITION_CODE_REGISTER : process (clock, reset)
 		begin
-		if(reset = '1') then
+		if(reset = '0') then
 			CCR_Result <= x"0";
 		elsif(rising_edge(clock)) then
 			if(CCR_Load = '1') then

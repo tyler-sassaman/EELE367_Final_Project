@@ -49,6 +49,7 @@ architecture alu_arch of alu is
 			-- Carry Flag (C) --
 			NZVC(0) <= Sum_uns(8);
 
+		-- Add more functions based off the select line here
 		end if;
 	end process;
 
